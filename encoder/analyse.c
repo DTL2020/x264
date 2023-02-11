@@ -771,7 +771,8 @@ static void mb_analyse_intra( x264_t *h, x264_mb_analysis_t *a, int i_satd_inter
             if( h->pixf.intra_mbcmp_x9_8x8 && predict_mode[8] >= 0 )
             {
                 /* No shortcuts here. The SSSE3 implementation of intra_mbcmp_x9 is fast enough. */
-                i_best = h->pixf.intra_mbcmp_x9_8x8( p_src_by, p_dst_by, edge, cost_i4x4_mode-i_pred_mode, a->i_satd_i8x8_dir[idx] );
+//              i_best = h->pixf.intra_mbcmp_x9_8x8( p_src_by, p_dst_by, edge, cost_i4x4_mode-i_pred_mode, a->i_satd_i8x8_dir[idx] );
+				i_best = 100; // quick dirty (temporal) performance patch for I-frames only - degrades compressability !
                 i_cost += i_best & 0xffff;
                 i_best >>= 16;
                 a->i_predict8x8[idx] = i_best;
@@ -890,7 +891,8 @@ static void mb_analyse_intra( x264_t *h, x264_mb_analysis_t *a, int i_satd_inter
             if( h->pixf.intra_mbcmp_x9_4x4 && predict_mode[8] >= 0 )
             {
                 /* No shortcuts here. The SSSE3 implementation of intra_mbcmp_x9 is fast enough. */
-                i_best = h->pixf.intra_mbcmp_x9_4x4( p_src_by, p_dst_by, cost_i4x4_mode-i_pred_mode );
+//                i_best = h->pixf.intra_mbcmp_x9_4x4( p_src_by, p_dst_by, cost_i4x4_mode-i_pred_mode );
+				i_best = 100; // quick dirty (temporal) performance patch - degrades compressability !
                 i_cost += i_best & 0xffff;
                 i_best >>= 16;
                 a->i_predict4x4[idx] = i_best;
