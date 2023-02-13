@@ -768,7 +768,7 @@ static void mb_analyse_intra( x264_t *h, x264_mb_analysis_t *a, int i_satd_inter
             const int8_t *predict_mode = predict_8x8_mode_available( a->b_avoid_topright, h->mb.i_neighbour8[idx], idx );
             h->predict_8x8_filter( p_dst_by, edge, h->mb.i_neighbour8[idx], ALL_NEIGHBORS );
 
-            if( h->pixf.intra_mbcmp_x9_8x8 && predict_mode[8] >= 0 )
+            if( /* h->pixf.intra_mbcmp_x9_8x8 && */  predict_mode[8] >= 0 ) // function not used in this version - and still not exist for 4:2:2 > 8bit ?
             {
                 /* No shortcuts here. The SSSE3 implementation of intra_mbcmp_x9 is fast enough. */
 //              i_best = h->pixf.intra_mbcmp_x9_8x8( p_src_by, p_dst_by, edge, cost_i4x4_mode-i_pred_mode, a->i_satd_i8x8_dir[idx] );
@@ -888,7 +888,7 @@ static void mb_analyse_intra( x264_t *h, x264_mb_analysis_t *a, int i_satd_inter
                 /* emulate missing topright samples */
                 MPIXEL_X4( &p_dst_by[4 - FDEC_STRIDE] ) = PIXEL_SPLAT_X4( p_dst_by[3 - FDEC_STRIDE] );
 
-            if( h->pixf.intra_mbcmp_x9_4x4 && predict_mode[8] >= 0 )
+            if( /* h->pixf.intra_mbcmp_x9_4x4 && */ predict_mode[8] >= 0 ) // function not used in this version (temporal) - and still not exist for 4:2:2 > 8bit ?
             {
                 /* No shortcuts here. The SSSE3 implementation of intra_mbcmp_x9 is fast enough. */
 //                i_best = h->pixf.intra_mbcmp_x9_4x4( p_src_by, p_dst_by, cost_i4x4_mode-i_pred_mode );
